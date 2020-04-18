@@ -1,0 +1,13 @@
+name = "DanceWebpack"
+uuid = "a3f6d6af-7219-4169-95a2-3e0714860109"
+authors = ["Chris \"Yoh\" Meyers <48554065+yoh-meyers@users.noreply.github.com>"]
+version = "0.0.1"
+
+[extras]
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+SafeTestsets = "1bc83da4-3b8d-516f-aca4-4fe02f6d838f"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["HTTP", "Pkg", "SafeTestsets", "Test"]

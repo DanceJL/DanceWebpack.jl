@@ -1,0 +1,64 @@
+{
+  "name": "$name",
+  "version": "$version",
+  "description": "DanceWebpack generated integration",
+  "author": "$author",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "webpack --mode production",
+    "develop": "webpack-dev-server --hot --mode development",
+    "lint:fix": "eslint --fix --ext .js, ."
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.5.0",
+    "popper.js": "^1.14.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "autoprefixer": "^9.5.1",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^2.0.1",
+    "css-loader": "^2.1.1",
+    "eslint": "^6.8.0",
+    "eslint-loader": "^4.0.0",
+    "file-loader": "^3.0.1",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true,
+      "jquery": true,
+      "node": true
+    },
+    "extends": "eslint:recommended",
+    "parser": "babel-eslint",
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "always"
+      ],
+      "indent": [
+        "error",
+        2
+      ],
+      "no-cond-assign": [
+        "error",
+        "always"
+      ],
+      "semi": "error"
+    }
+  }
+}
