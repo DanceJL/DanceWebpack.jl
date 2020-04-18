@@ -1,0 +1,27 @@
+language: julia
+
+os:
+  - linux
+  - osx
+  - windows
+
+julia:
+  - 1.1
+  - 1.4
+  - nightly
+
+matrix:
+  allow_failures:
+    - julia: nightly
+
+sudo: false
+
+before_install:
+  - if [ "$TRAVIS_OS_NAME" != "windows" ]; then nvm install --lts; fi
+  - if [ "$TRAVIS_OS_NAME" != "windows" ]; then nvm use --lts; fi
+
+notifications:
+  email: false
+
+after_success:
+  - julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
