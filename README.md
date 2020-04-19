@@ -163,7 +163,7 @@ npm run build
 This will output minified files to `static/dist` dir of your project.
 Source maps are not supplied.
 
-Please start Dance web server in production mode to serve these static assets.
+Please start Dance web server to serve these static assets.
 
 ### 4.3 - Javascript Linting
 
