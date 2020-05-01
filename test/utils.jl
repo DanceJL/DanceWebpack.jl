@@ -19,7 +19,7 @@ end
 
 
 function delete_project() :: Nothing
-    cd("..")
+    cd("../..")
     rm("demo", recursive=true)
     Dance.Router.delete_routes!()
     nothing
@@ -37,18 +37,19 @@ end
 function get_webpack_bundle_id() :: String
     bundle_id::String = ""
 
-    for line in eachline(open("html/base.html", "r"))
+    for line in eachline(open("../html/base.html", "r"))
         if occursin("<script src=\"/static/main.", line) && occursin(".js", line)
             bundle_id = split(split(line, "<script src=\"/static/main.")[2], ".js\"></script>")[1]
         end
     end
 
+    cd("..")
     return bundle_id
 end
 
 
 function project_settings_and_launch() :: Bool
-    cd("../settings")
+    cd("settings")
 
     touch("dev.jl")
     open("dev.jl", "w") do io
@@ -65,12 +66,11 @@ end
 
 
 function static_files_append_content() :: Int64
-    cd("static")
     open("src/js/main.js", "a") do io_js
         write(io_js, "\$('#js-button').click(function() {\n  console.log(\"Button clicked\");\n});")
     end
 
-    open("src/css/main.scss", "a") do io_css
+    open("src/css/main.css", "a") do io_css
         write(io_css, "#js-button {\n  color: red;\n}")
     end
 end
