@@ -46,6 +46,26 @@ if !Sys.iswindows()
         @test r.status==200
         compare_http_header(r.headers, "content_type", "text/css")
     end
+
+    cd("static")
+
+
+    #= Test over-writting `base.html` with Dev mode =#
+    @testset "npm run develop" begin
+        @async run(`npm run develop`)
+        sleep(5)
+        html_file = read("../html/base.html", String)
+        @test occursin("<script src=\"http://localhost:3000/main.js\"></script>", html_file)
+    end
+
+
+    #= Test over-writting `base.html` with Prod mode =#
+    run(`npm run build`)
+    html_file = read("../html/base.html", String)
+    @test occursin("<link rel=\"stylesheet\" href=\"/static/main.", html_file)
+    @test occursin("<script src=\"/static/main.", html_file)
+    @test occursin("<script src=\"/static/vendors~main.", html_file)
 end
+
 
 delete_project()
