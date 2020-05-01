@@ -53,7 +53,7 @@ if !Sys.iswindows()
     #= Test over-writting `base.html` with Dev mode =#
     @testset "npm run develop" begin
         @async run(`npm run develop`)
-        sleep(5)
+        sleep(10)
         html_file = read("../html/base.html", String)
         @test occursin("<script src=\"http://localhost:3000/main.js\"></script>", html_file)
     end
@@ -65,7 +65,6 @@ if !Sys.iswindows()
     @test occursin("<link rel=\"stylesheet\" href=\"/static/main.", html_file)
     @test occursin("<script src=\"/static/main.", html_file)
     @test occursin("<script src=\"/static/vendors~main.", html_file)
+
+    delete_project()
 end
-
-
-delete_project()
