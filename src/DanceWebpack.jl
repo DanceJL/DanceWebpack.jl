@@ -51,6 +51,11 @@ function setup(project_path::String=".") :: Nothing
                                 item[2] = strip(value, '"')
                                 if item[1]=="name"
                                     name = item[2]
+
+                                    # package.json names cannot contain spaces
+                                    if occursin(" ", name)
+                                        name = replace(name, " " => "_")
+                                    end
                                 elseif item[1]=="version"
                                     version = item[2]
                                 end
