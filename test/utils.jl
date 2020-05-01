@@ -64,14 +64,6 @@ function project_settings_and_launch() :: Bool
 end
 
 
-function routes() :: Int64
-    cd("..")
-    open("routes.jl", "a") do io_routes
-        write(io_routes, "static_dir(\"/static\", \"static/dist\")\n")
-    end
-end
-
-
 function static_files_append_content() :: Int64
     cd("static")
     open("src/js/main.js", "a") do io_js
