@@ -27,6 +27,15 @@ class HTMLScriptTagPlugin {
           }
           this.fileArray = fileString.split('\n');
 
+          /* Remove Prod script & link tags */
+          this.fileArray.forEach(function(line, idx) {
+            if (line.includes('<link rel="stylesheet" href="/static/main') && line.includes('.css">')) {
+              this.fileArray.splice(idx, 1)
+            } else if (line.includes('<script src="/static/vendors~main.') && line.includes('.js"></script>')) {
+              this.fileArray.splice(idx, 1);
+            }
+          }.bind(this));
+
           /* Replace/add script tag */
           var lineReplaced = false;
           this.fileArray.forEach(function(line, idx) {
@@ -46,34 +55,41 @@ class HTMLScriptTagPlugin {
             }.bind(this));
           }
 
-          /*
-            ONLY IF PROD: Replace/add stylesheet link tag
-            ELSE Remove if DEV mode
-          */
-          this.fileArray.forEach(function(line, idx) {
-            if (line.includes('<link rel="stylesheet" href="/static/main') && line.includes('.css">')) {
-              this.fileArray.splice(idx, 1)
-            }
-          }.bind(this));
-          if (this.mode=='production') {
-            this.fileArray.forEach(function(line, idx) {
-              if (line=='</head>') {
-                this.fileArray[idx] = '<link rel="stylesheet" href="/static/main.' + stats.hash + '.css">\n</head>';
-              }
-            }.bind(this));
-          }
-
           /* Convert this.fileArray back to string format and write result to this.fileName */
           fileString = '';
           this.fileArray.forEach(function(line) {
             fileString += line + '\n';
           });
           fileString = fileString.trim() + '\n';
+
+          /*
+            ONLY IF PROD: Replace/add stylesheet link tag
+            ELSE Remove if DEV mode
+          */
+          if (this.mode=='production') {
+            this.fileArray = fileString.split('\n');
+
+            this.fileArray.forEach(function(line, idx) {
+              if (line=='</head>') {
+                this.fileArray[idx] = '<link rel="stylesheet" href="/static/main.' + stats.hash + '.css">\n</head>';
+              } else if (line=='</body>') {
+                this.fileArray[idx] = '<script src="/static/vendors~main.' + stats.hash + '.js"></script>\n</body>';
+              }
+            }.bind(this));
+
+            fileString = '';
+            this.fileArray.forEach(function(line) {
+              fileString += line + '\n';
+            });
+            fileString = fileString.trim() + '\n';
+          }
+          /* End PROD case */
+
           fs.writeFile(this.fileName, fileString, 'utf8', error => {
             if (error) {
               throw error;
+              resolve();
             }
-            resolve();
           });
         }.bind(this));
       });
