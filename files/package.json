@@ -48,7 +48,7 @@
     "rules": {
       "comma-dangle": [
         "error",
-        "always"
+        "never"
       ],
       "indent": [
         "error",
