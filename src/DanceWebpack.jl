@@ -24,6 +24,7 @@ function setup(project_path::String=".") :: Nothing
         if Configuration.populate(project_path)
             settings::Dict{Symbol, Any} = Configuration.Settings
             html_base_file_path::String= settings[:html_base_filename]
+            routes_path::String = settings[:routes_filename]
 
             # Copy Webpack files to project root
             sample_files_dir::String = joinpath(@__DIR__, "../files")
@@ -94,6 +95,11 @@ function setup(project_path::String=".") :: Nothing
             file_string = replace(file_string, "$idx" => "\"../" * html_base_file_path * ".html\"")
             open(webpack_config_file_path, "w") do io
                 write(io, file_string)
+            end
+
+            # Add Webpack static dir output to project routes.jl file
+            open(routes_path * ".jl", "a+") do io
+                write(io, "static_dir(\"/static\", \"static/dist\")\n")
             end
 
             @info "Webpack files added to `static` dir in project.\nPlease cd into `static` dir and add dependencies by installing NodeJS and running `npm install`"
