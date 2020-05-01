@@ -41,7 +41,7 @@ or by using Pkg functions
 julia> using Pkg; Pkg.add(Pkg.PackageSpec(url="https://github.com/DanceJL/DanceWebpack.jl"))
 ```
 
-Compatibility is with Julia 1.1 and Dance 0.0.1 upward.
+Compatibility is with Julia 1.1 Dance 0.1.0 upward.
 
 ## 3 - Setup
 
@@ -59,14 +59,6 @@ using DanceWebpack
 setup()
 ```
 
-If project base html template not located at `html/base.html`, please specify location relative to project root in command.
-For example:
-
-```julia
-using DanceWebpack
-setup(html_base_file_path="web/html/base.html")
-```
-
 As output of running above will suggest, please cd into `static` dir and run `npm install` thereafter to set up NodeJS packages.
 
 ### 3.2 - Package.json Metadata
@@ -74,6 +66,12 @@ As output of running above will suggest, please cd into `static` dir and run `np
 Note that depending on whether `authors`, `name` and `version` are specified in `Project.toml`, corresponding values in `static/package.json` will be automatically filled-in.
 
 If not is case, values will simply be left blank.
+
+### 3.3 - Adding Static Route & Links in `base.html`
+
+Will automatically be appended to `routes.jl` (or equivalent as specified in project settings): `static_dir("/static", "static/dist")` entry.
+
+`base.html` (or equivalent as specified in project settings) will automatically have `<link>` and `<script>` tags appended and updated each time you compile static assets with Webpack (see "4.2 - Serving Webpack Bundle" section).
 
 ## 4 - NodeJS Integration
 
