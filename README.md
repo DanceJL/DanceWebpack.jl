@@ -32,13 +32,13 @@ That said **aim of DanceWebpack is to take away abstraction in setting up fronte
 Package can be installed with Julia's package manager, either by using Pkg REPL mode (*press ]*):
 
 ```
-pkg> add https://github.com/DanceJL/DanceWebpack.jl
+pkg> add DanceWebpack
 ```
 
 or by using Pkg functions
 
 ```julia
-julia> using Pkg; Pkg.add(Pkg.PackageSpec(url="https://github.com/DanceJL/DanceWebpack.jl"))
+julia> using Pkg; Pkg.add("DanceWebpack")
 ```
 
 Compatibility is with Julia 1.1 Dance 0.1.0 upward.
