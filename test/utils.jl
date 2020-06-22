@@ -48,7 +48,7 @@ function get_webpack_bundle_id() :: String
 end
 
 
-function project_settings_and_launch() :: Bool
+function project_settings() :: Nothing
     cd("settings")
 
     touch("dev.jl")
@@ -61,7 +61,6 @@ function project_settings_and_launch() :: Bool
     end
 
     cd("..")
-    Dance.pre_launch(joinpath(abspath(@__DIR__), "demo"))
 end
 
 

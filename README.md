@@ -41,7 +41,7 @@ or by using Pkg functions
 julia> using Pkg; Pkg.add("DanceWebpack")
 ```
 
-Compatibility is with Julia 1.1 Dance 0.1.0 upward.
+Compatibility is with Julia 1.1 Dance 0.2.1 upward.
 
 ## 3 - Setup
 

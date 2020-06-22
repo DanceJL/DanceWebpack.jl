@@ -7,7 +7,7 @@ include("utils.jl")
 
 Dance.start_project("demo")
 cd("demo")
-project_settings_and_launch()
+project_settings()
 add_project_toml()
 @test_logs (:info, "Webpack files added to `static` dir in project.\nPlease cd into `static` dir and add dependencies by installing NodeJS and running `npm install`") DanceWebpack.setup()
 

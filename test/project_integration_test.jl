@@ -9,7 +9,8 @@ include("utils.jl")
 # => test here with no values specified
 Dance.start_project("demo")
 cd("demo")
-project_settings_and_launch()
+project_settings()
+Dance.populate_settings(joinpath(abspath(@__DIR__), "demo"))
 @test_logs (:info, "Webpack files added to `static` dir in project.\nPlease cd into `static` dir and add dependencies by installing NodeJS and running `npm install`") DanceWebpack.setup()
 
 
@@ -24,10 +25,10 @@ if !Sys.iswindows()
     run(`npm run build`)
     bundle_id = get_webpack_bundle_id()
     Dance.Router.delete_routes!()
-    Dance.pre_launch(joinpath(abspath(@__DIR__), "demo"))
 
     @testset "HTTP.listen" begin
-        @async Dance.launch(true)
+        @async include(joinpath(abspath(pwd()), "dance.jl"))
+        sleep(1)
 
         r = HTTP.request("GET", "http://127.0.0.1:8000/")
         @test r.status==200
