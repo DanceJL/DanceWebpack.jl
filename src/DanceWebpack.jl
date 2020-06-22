@@ -29,7 +29,9 @@ function setup(project_path::String=".") :: Nothing
             # Copy Webpack files to project root
             sample_files_dir::String = joinpath(@__DIR__, "../files")
             cp(sample_files_dir, copied_file_path)
-            run(`chmod -R 755 $copied_file_path`)
+            if !Sys.iswindows()
+                run(`chmod -R 755 $copied_file_path`)
+            end
 
             # Obtain `authors`, `name`, `version` values from project Project.toml
             authors::String = ""
