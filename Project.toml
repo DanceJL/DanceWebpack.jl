@@ -1,7 +1,7 @@
 name = "DanceWebpack"
 uuid = "a3f6d6af-7219-4169-95a2-3e0714860109"
 authors = ["Chris \"Yoh\" Meyers <48554065+yoh-meyers@users.noreply.github.com>"]
-version = "0.1.0"
+version = "0.2.0"
 
 [deps]
 Dance = "fc0ff973-d74e-417c-9681-260383068f65"
