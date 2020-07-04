@@ -29,7 +29,11 @@ function setup(project_path::String=".") :: Nothing
             # Copy Webpack files to project root
             sample_files_dir::String = joinpath(@__DIR__, "../files")
             cp(sample_files_dir, copied_file_path)
-            if !Sys.iswindows()
+            if Sys.iswindows()
+                run(`icacls.exe $copied_file_path /reset /T /Q`)
+                username::String = read(run(`whoami`), String)
+                run(`icacls.exe $copied_file_path /grant $username:F /T /Q`)
+            else
                 run(`chmod -R 755 $copied_file_path`)
             end
 
